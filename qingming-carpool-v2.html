@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>清明返乡拼车</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: #daf690;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      position: relative;
+      background: #daf690;
+    }
+
+    .page {
+      display: none;
+      width: 750px;
+      overflow: hidden;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .tab1, .tab2 {
+      position: relative;
+      width: 750px;
+    }
+
+    .frame {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      padding: 53px 57px 25px 55px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    .tab1 .frame {
+      background-image: url(.figma/image/mn76f15r-czmedcd.png);
+    }
+
+    .tab2 .frame {
+      background-image: url(.figma/image/mn76f8to-ewxz9k5.png);
+    }
+
+    .frame img {
+      display: block;
+    }
+
+    .image2 {
+      width: 638px;
+      height: 24px;
+    }
+
+    .image3 {
+      margin-top: 40px;
+      margin-left: 180px;
+      width: 250px;
+      height: 35px;
+    }
+
+    .danmaku-container {
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      overflow: hidden;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .danmaku-wrapper {
+      display: flex;
+      animation: danmaku-scroll 25s linear infinite;
+      white-space: nowrap;
+    }
+
+    .danmaku-item {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      margin-right: 40px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    @keyframes danmaku-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .autoWrapper2 {
+      position: relative;
+      width: 750px;
+    }
+
+    .frame2 {
+      position: absolute;
+      top: -141px;
+      left: -17px;
+      width: 750px;
+      height: 370px;
+      pointer-events: none;
+    }
+
+    .frame3 {
+      position: relative;
+      width: 750px;
+      background: linear-gradient(180deg, #ffffff 3.02%, #f8f8f8 9.96%, #f8f8f8 9.96%);
+    }
+
+    .slice {
+      width: 750px;
+      background: linear-gradient(180deg, #ffffff 3.02%, #f8f8f8 9.96%, #f8f8f8 9.96%);
+    }
+
+    .image9 {
+      display: block;
+      margin: 0 auto;
+      padding: 25px 20px;
+      width: 710px;
+    }
+
+    .frame14, .frame6 {
+      position: relative;
+      width: 750px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .tab1 .frame14 {
+      background-image: url(.figma/image/mn76f15r-qe08xpo.png);
+      padding: 290px 40px 590px 29px;
+    }
+
+    .tab2 .frame6 {
+      background-image: url(.figma/image/mn76f8to-cy96w1j.png);
+      padding: 290px 44px 583px 29px;
+    }
+
+    .autoWrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-right: 194px;
+    }
+
+    .frame4 {
+      margin-top: 23px;
+      width: 14px;
+      height: 58px;
+    }
+
+    .frame5 {
+      width: 56px;
+      height: 56px;
+    }
+
+    .frame13 {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 215px;
+      margin-left: 11px;
+      border: 2px solid #79ff99;
+      border-radius: 100px;
+      background: #09b232;
+      padding: 8px 75px 8px 8px;
+      min-width: 670px;
+    }
+
+    .frame12 {
+      position: relative;
+      width: 320px;
+      height: 88px;
+      background-image: url(.figma/image/mn76f15r-x02vpk2.svg);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .frame11 {
+      position: absolute;
+      top: 11px;
+      left: 13px;
+      width: 278px;
+      height: 74px;
+    }
+
+    .frame11 img {
+      position: absolute;
+    }
+
+    .frame6-img {
+      top: 31px;
+      left: 3px;
+      width: 22px;
+      height: 19px;
+      transform: rotate(87deg);
+    }
+
+    .frame7 {
+      top: 29px;
+      left: -1px;
+      width: 20px;
+      height: 23px;
+    }
+
+    .frame8 {
+      top: 21px;
+      left: 20px;
+      width: 11px;
+      height: 14px;
+      transform: rotate(-180deg);
+    }
+
+    .frame9 {
+      position: absolute;
+      top: 48px;
+      left: 36px;
+      border-radius: 50%;
+      background: #09b232;
+      width: 214px;
+      height: 16px;
+    }
+
+    .frame10 {
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 258px;
+      height: 53px;
+    }
+
+    .frame11 .text {
+      position: absolute;
+      top: 11px;
+      left: 36px;
+      width: 210px;
+      height: 63px;
+      letter-spacing: 0;
+      color: #ffffff;
+      font-family: MFYuanHei, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 42px;
+      line-height: 63px;
+    }
+
+    .image4 {
+      position: absolute;
+      top: 38px;
+      left: 249px;
+      width: 43px;
+      height: 43px;
+    }
+
+    .text2 {
+      margin: 26px 0px 0px;
+      width: 180px;
+      letter-spacing: 0;
+      color: #ffffff;
+      font-family: MFYuanHei, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 36px;
+    }
+
+    .image10 {
+      margin-top: 222px;
+      margin-left: 7px;
+      width: 670px;
+      height: 108px;
+    }
+
+    .text3 {
+      position: absolute;
+      top: 357px;
+      right: 39px;
+      width: 216px;
+      height: 24px;
+      line-height: 24px;
+      letter-spacing: 0;
+      color: #ffffff;
+      font-family: FZLanTingHeiS-DB-GB, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 24px;
+    }
+
+    .image7 {
+      display: block;
+      width: 751px;
+      margin-top: -1px;
+    }
+
+    .tab-buttons {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 750px;
+      max-width: 100vw;
+      display: flex;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      color: #666;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      margin: 0 5px;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    @media (max-width: 750px) {
+      .container, .page, .tab1, .tab2, .frame, .autoWrapper2, .frame3, .frame14, .frame6, .image7 {
+        width: 100vw !important;
+      }
+      
+      .image2, .image3, .image9, .image10, .image4 {
+        width: 100% !important;
+        height: auto !important;
+      }
+      
+      .frame {
+        padding: 53px 57px 25px 55px;
+      }
+      
+      .image3 {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      
+      .frame13 {
+        min-width: auto !important;
+        width: calc(100% - 40px) !important;
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+      }
+      
+      .frame12 {
+        width: 60% !important;
+        height: auto !important;
+        aspect-ratio: 320/88;
+      }
+      
+      .text2 {
+        width: 40% !important;
+        font-size: 24px !important;
+      }
+      
+      .frame11 .text {
+        font-size: 28px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="page1" class="page active">
+      <div class="tab1">
+        <div class="frame">
+          <img src=".figma/image/mn76f15s-cvsio9w.png" class="image2" alt="status bar">
+          <img src=".figma/image/mn76f15s-tpc1eg1.png" class="image3" alt="title">
+          
+          <div class="danmaku-container">
+            <div class="danmaku-wrapper">
+              <span class="danmaku-item">清明返乡，求拼车</span>
+              <span class="danmaku-item">找搭子一起回家</span>
+              <span class="danmaku-item">人找车顺路滴滴</span>
+              <span class="danmaku-item">找同行，一路不孤独</span>
+              <span class="danmaku-item">清明返乡，求拼车</span>
+              <span class="danmaku-item">找搭子一起回家</span>
+              <span class="danmaku-item">人找车顺路滴滴</span>
+              <span class="danmaku-item">找同行，一路不孤独</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="autoWrapper2">
+          <img src=".figma/image/mn76f15r-zmq5d14.svg" class="frame2" alt="">
+          
+          <div class="frame14">
+            <div class="autoWrapper">
+              <img src=".figma/image/mn76f15r-85ejmtd.svg" class="frame4" alt="">
+              <img src=".figma/image/mn76f15r-2av5jzq.svg" class="frame5" alt="">
+            </div>
+            
+            <div class="frame13">
+              <div class="frame12">
+                <div class="frame11">
+                  <img src=".figma/image/mn76f15s-dathppx.png" class="frame6-img" alt="">
+                  <img src=".figma/image/mn76f15r-9ql9ezl.png" class="frame7" alt="">
+                  <img src=".figma/image/mn76f15r-uhhgdzt.png" class="frame8" alt="">
+                  <div class="frame9"></div>
+                  <img src=".figma/image/mn76f15r-r8oybef.svg" class="frame10" alt="">
+                  <p class="text">同行找拼友</p>
+                </div>
+                <img src=".figma/image/mn76f15s-s5jen53.png" class="image4" alt="">
+              </div>
+              <p class="text2">自驾求租车</p>
+            </div>
+          </div>
+          
+          <p class="text3">找同行，一路不孤独</p>
+          
+          <div class="frame3">
+            <div class="slice"></div>
+            <img src=".figma/image/mn76f15s-d5afxbs.png" class="image9" alt="content">
+          </div>
+          
+          <img src=".figma/image/mn76f15s-a5v3lg4.png" class="image7" alt="footer">
+        </div>
+      </div>
+    </div>
+
+    <div id="page2" class="page">
+      <div class="tab2">
+        <div class="frame">
+          <img src=".figma/image/mn76f8tp-amog674.png" class="image2" alt="status bar">
+          <img src=".figma/image/mn76f8tp-u9i88dt.png" class="image3" alt="title">
+          
+          <div class="danmaku-container">
+            <div class="danmaku-wrapper">
+              <span class="danmaku-item">清明返乡，求拼车</span>
+              <span class="danmaku-item">找搭子一起回家</span>
+              <span class="danmaku-item">人找车顺路滴滴</span>
+              <span class="danmaku-item">找同行，一路不孤独</span>
+              <span class="danmaku-item">清明返乡，求拼车</span>
+              <span class="danmaku-item">找搭子一起回家</span>
+              <span class="danmaku-item">人找车顺路滴滴</span>
+              <span class="danmaku-item">找同行，一路不孤独</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="autoWrapper2">
+          <img src=".figma/image/mn76f8to-minqvh5.svg" class="frame2" alt="">
+          
+          <div class="frame6">
+            <div class="autoWrapper">
+              <img src=".figma/image/mn76f8to-8yze1vn.svg" class="frame4" alt="">
+              <img src=".figma/image/mn76f8to-ri4zowh.svg" class="frame5" alt="">
+            </div>
+            <img src=".figma/image/mn76f8tp-8wpoev2.png" class="image10" alt="button">
+          </div>
+          
+          <p class="text3">找同行，一路不孤独</p>
+          
+          <div class="frame3">
+            <div class="slice"></div>
+            <img src=".figma/image/mn76f8tp-wrzmnvq.png" class="image9" alt="content">
+          </div>
+          
+          <img src=".figma/image/mn76f8tp-deaoadt.png" class="image7" alt="footer">
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-page="page1">同行找拼友</button>
+      <button class="tab-btn" data-page="page2">自驾求租车</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const pages = document.querySelectorAll('.page');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetPage = this.getAttribute('data-page');
+          
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          pages.forEach(page => page.classList.remove('active'));
+          
+          this.classList.add('active');
+          document.getElementById(targetPage).classList.add('active');
+          
+          window.scrollTo(0, 0);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

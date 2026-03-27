@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>清明返乡拼车</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .header {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #81c784 0%, #4caf50 50%, #388e3c 100%);
+      overflow: hidden;
+    }
+
+    .header-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .header-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    .header-title h1 {
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+
+    .header-title p {
+      font-size: 24px;
+      color: #e8f5e9;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .danmaku-container {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .danmaku-wrapper {
+      display: flex;
+      animation: danmaku-scroll 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    .danmaku-item {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 20px;
+      margin-right: 40px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    @keyframes danmaku-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .tab-container {
+      padding: 20px;
+      background: #fff;
+    }
+
+    .tab-buttons {
+      display: flex;
+      background: #f5f5f5;
+      border-radius: 50px;
+      padding: 4px;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      color: #666;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(76, 175, 80, 0.15);
+    }
+
+    .card-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #81c784 0%, #4caf50 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+    }
+
+    .card-icon svg {
+      width: 60px;
+      height: 60px;
+      fill: #fff;
+    }
+
+    .card-title {
+      font-size: 24px;
+      color: #2e7d32;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .card-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+      color: #fff;
+      padding: 16px 48px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .card-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(76, 175, 80, 0.5);
+    }
+
+    .card-btn:active {
+      transform: translateY(0);
+    }
+
+    .guide-section {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+    }
+
+    .guide-title {
+      font-size: 18px;
+      color: #2e7d32;
+      margin-bottom: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .guide-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      background: #4caf50;
+      margin-right: 10px;
+      border-radius: 2px;
+    }
+
+    .guide-list {
+      list-style: none;
+    }
+
+    .guide-list li {
+      padding: 12px 0;
+      color: #666;
+      font-size: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+    }
+
+    .guide-list li:last-child {
+      border-bottom: none;
+    }
+
+    .guide-list li::before {
+      content: '✓';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: #e8f5e9;
+      color: #4caf50;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 12px;
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .decoration {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .decoration-1 {
+      top: 20px;
+      left: -30px;
+    }
+
+    .decoration-2 {
+      top: 80px;
+      right: -20px;
+      width: 60px;
+      height: 60px;
+    }
+
+    .decoration-3 {
+      bottom: 60px;
+      left: 20px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .leaf-icon {
+      position: absolute;
+      opacity: 0.2;
+    }
+
+    .leaf-1 {
+      top: 30px;
+      right: 40px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .leaf-2 {
+      bottom: 100px;
+      left: 30px;
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="decoration decoration-1"></div>
+      <div class="decoration decoration-2"></div>
+      <div class="decoration decoration-3"></div>
+      
+      <svg class="leaf-icon leaf-1" viewBox="0 0 24 24" fill="#fff">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+      <svg class="leaf-icon leaf-2" viewBox="0 0 24 24" fill="#fff">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+      
+      <div class="header-title">
+        <h1>清明返乡</h1>
+        <p>一路同行，温暖回家</p>
+      </div>
+      
+      <div class="danmaku-container">
+        <div class="danmaku-wrapper">
+          <span class="danmaku-item">清明返乡，求拼车</span>
+          <span class="danmaku-item">找搭子一起回家</span>
+          <span class="danmaku-item">人找车顺路滴滴</span>
+          <span class="danmaku-item">找同行，一路不孤独</span>
+          <span class="danmaku-item">清明返乡，求拼车</span>
+          <span class="danmaku-item">找搭子一起回家</span>
+          <span class="danmaku-item">人找车顺路滴滴</span>
+          <span class="danmaku-item">找同行，一路不孤独</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-container">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="tab1">同行找拼友</button>
+        <button class="tab-btn" data-tab="tab2">自驾求租车</button>
+      </div>
+
+      <div id="tab1" class="tab-content active">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12,2C15.31,2 18,4.66 18,7.95C18,12.41 12,19 12,19C12,19 6,12.41 6,7.95C6,4.66 8.69,2 12,2M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6M20,19C20,21.21 16.42,23 12,23C7.58,23 4,21.21 4,19C4,17.71 5.22,16.56 7.11,15.83L7.75,16.74C6.67,17.19 6,17.81 6,18.5C6,19.88 8.69,21 12,21C15.31,21 18,19.88 18,18.5C18,17.81 17.33,17.19 16.25,16.74L16.89,15.83C18.78,16.56 20,17.71 20,19Z"/>
+            </svg>
+          </div>
+          <h3 class="card-title">顺路拼车速约</h3>
+          <p class="card-desc">找到同路人，分摊路费，结伴返乡<br>让回家之路不再孤单</p>
+          <button class="card-btn">立即发帖</button>
+        </div>
+        
+        <div class="guide-section">
+          <h4 class="guide-title">拼车指南</h4>
+          <ul class="guide-list">
+            <li>发布您的出发地和目的地信息</li>
+            <li>系统自动匹配顺路同行者</li>
+            <li>在线沟通确认行程细节</li>
+            <li>安全出行，温暖到家</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="tab2" class="tab-content">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M18.92,6.01C18.72,5.42 18.16,5 17.5,5H6.5C5.84,5 5.29,5.42 5.08,6.01L3,12V20A1,1 0 0,0 4,21H5A1,1 0 0,0 6,20V19H18V20A1,1 0 0,0 19,21H20A1,1 0 0,0 21,20V12L18.92,6.01M6.5,16A1.5,1.5 0 0,1 5,14.5A1.5,1.5 0 0,1 6.5,13A1.5,1.5 0 0,1 8,14.5A1.5,1.5 0 0,1 6.5,16M17.5,16A1.5,1.5 0 0,1 16,14.5A1.5,1.5 0 0,1 17.5,13A1.5,1.5 0 0,1 19,14.5A1.5,1.5 0 0,1 17.5,16M5,11L6.5,6.5H17.5L19,11H5Z"/>
+            </svg>
+          </div>
+          <h3 class="card-title">租车求租速寻</h3>
+          <p class="card-desc">发布租车需求，快速找到合适车辆<br>自驾返乡更自由</p>
+          <button class="card-btn">立即发帖</button>
+        </div>
+        
+        <div class="guide-section">
+          <h4 class="guide-title">租车指南</h4>
+          <ul class="guide-list">
+            <li>填写租车需求和预算</li>
+            <li>浏览车主发布的车辆信息</li>
+            <li>联系车主确认租车细节</li>
+            <li>签订协议，安全出行</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>清明返乡，一路平安</p>
+      <p style="margin-top: 8px; font-size: 12px;">安全出行，文明拼车</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetTab = this.getAttribute('data-tab');
+          
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          this.classList.add('active');
+          document.getElementById(targetTab).classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.card-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          alert('功能开发中，敬请期待！');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
